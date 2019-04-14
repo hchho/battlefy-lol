@@ -1,9 +1,9 @@
 import React from 'react'
 
 const getData = async () => {
-  const res = await fetch('http://localhost:8081/api/foo')
+  const res = await fetch('http://localhost:8080/summoner/RiotSchmick')
   const data = await res.json()
-  return data 
+  return data
 }
 
 const App = () => {  
