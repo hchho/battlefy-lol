@@ -1,14 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Match from './Match'
 
 const Results = (props) => (
-  <h1>
-    {props.result.accountId}
-  </h1>
+  <ul>
+    {props.results.matches.map(result => <Match match={result} />)}
+  </ul>
 )
 
 const mapStateToProps = state => ({
-  result: state.summonerRequest.response || 'No results',
+  results: state.matchRequest.response || { matches: [] },
 })
 
 export default connect(mapStateToProps)(Results)

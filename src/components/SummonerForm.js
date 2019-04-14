@@ -34,16 +34,11 @@ const SummonerForm = (props) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return ({
-    ...ownProps,
-    summoner: state.summonerRequest.response,
-  })
-}
+const mapStateToProps = (state, ownProps) => ownProps
 
 const mapDispatchToProps = dispatch => ({
   getData: name => dispatch(fetchSummoner(name))
-    .then(res => res.payload.summoner ? dispatch(fetchMatches(res.payload.summoner.accountId)) : null)
+    .then(res => dispatch(fetchMatches(res.payload.summoner.accountId)))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SummonerForm)
