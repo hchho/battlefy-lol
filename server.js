@@ -8,19 +8,33 @@ const config = require('./config.js')
 
 const port = process.env.PORT || 8080;
 
+const NA_API = 'https://na1.api.riotgames.com/lol/'
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.param('summonerName', (req, res, next) => {
-  var summonerName = req.params.summonerName
-  var fetchData = fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${config.key}`)
+  let summonerName = req.params.summonerName
+  let fetchData = fetch(`${NA_API}summoner/v4/summoners/by-name/${summonerName}?api_key=${config.key}`)
+  fetchData
+    .then(res => res.json())
+    .then(json => res.send(json))
+})
+
+app.param('matchAccountId', (req, res, next) => {
+  let id = req.params.matchAccountId
+  let fetchData = fetch(`${NA_API}match/v4/matchlists/by-account/${id}?api_key=${config.key}`)
   fetchData
     .then(res => res.json())
     .then(json => res.send(json))
 })
 
 app.get('/summoner/:summonerName', (req, res, next) => {
+  next()
+})
+
+app.get('/matches/:matchAccountId', (req, res, next) => {
   next()
 })
 

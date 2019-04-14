@@ -1,6 +1,5 @@
-export const getSummoner = name => ({
-  type: 'GET_SUMMONER_REQUEST',
-  name
+export const getSummoner = () => ({
+  type: 'GET_SUMMONER_REQUEST'
 })
 
 export const receiveSummoner = summoner => ({
@@ -9,9 +8,24 @@ export const receiveSummoner = summoner => ({
 })
 
 export const fetchSummoner = name => dispatch => {
-  console.log('fetching')
-  dispatch(getSummoner(name))
-  return fetch('http://localhost:8080/summoner/RiotSchmick')
+  dispatch(getSummoner())
+  return fetch(`http://localhost:8080/summoner/${name}`)
     .then(data => data.json(), error => console.log(error))
     .then(json => dispatch(receiveSummoner(json)))
+}
+
+export const getMatches = () => ({
+  type: 'GET_MATCHES_REQUEST'
+})
+
+export const receiveMatches = matchesData => ({
+  type: 'GET_MATCHES_SUCCESS',
+  payload: { matchesData }
+})
+
+export const fetchMatches = id => dispatch => {
+  dispatch(getMatches())
+  return fetch(`http://localhost:8080/matches/${id}`)
+    .then(data => data.json(), error => console.log(error))
+    .then(json => dispatch(receiveMatches(json)))
 }

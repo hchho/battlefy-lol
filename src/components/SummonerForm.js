@@ -1,23 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux'
-import { fetchSummoner } from '../actions'
-
-// const getData = async () => {
-//   const res = await fetch('http://localhost:8080/summoner/RiotSchmick')
-//   const data = await res.json()
-//   return data
-// }
+import { fetchSummoner, fetchMatches } from '../actions'
 
 const SummonerForm = (props) => {
   const { classes } = props
 
-  const handleClick = () => {
-    const data = props.getSummoner()
-    console.log(props)
+  const [summonerName, setName] = useState('')
+
+  const handleClick = async (name) => {
+    props.getData(name)
   }
 
   return (
@@ -27,11 +22,13 @@ const SummonerForm = (props) => {
           id="standard-name"
           label="Summoner Name"
           className={classes.textField}
+          value={summonerName}
+          onChange={(e) => setName(e.target.value)}
           margin="normal"
         />
-        <Button variant="contained" className={classes.button} onClick={handleClick}>
+        <Button variant="contained" className={classes.button} onClick={() => handleClick(summonerName)}>
           Search
-      </Button>
+        </Button>
       </Grid>
     </FormControl>
   )
@@ -39,13 +36,14 @@ const SummonerForm = (props) => {
 
 const mapStateToProps = (state, ownProps) => {
   return ({
-  ...ownProps,
-  summoner: state.summonerRequest.response,
-})
+    ...ownProps,
+    summoner: state.summonerRequest.response,
+  })
 }
 
 const mapDispatchToProps = dispatch => ({
-  getSummoner: name => dispatch(fetchSummoner(name))
+  getData: name => dispatch(fetchSummoner(name))
+    .then(res => res.payload.summoner ? dispatch(fetchMatches(res.payload.summoner.accountId)) : null)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SummonerForm)

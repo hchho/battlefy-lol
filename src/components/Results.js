@@ -1,9 +1,14 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-const Results = () => (
+const Results = (props) => (
   <h1>
-    asdf
+    {props.result.accountId}
   </h1>
 )
 
-export default Results
+const mapStateToProps = state => ({
+  result: state.summonerRequest.response || 'No results',
+})
+
+export default connect(mapStateToProps)(Results)
