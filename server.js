@@ -6,7 +6,7 @@ const path = require('path');
 const fetch = require('node-fetch');
 const config = require('./config.js')
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 5000;
 
 const NA_API = 'https://na1.api.riotgames.com/lol/'
 

@@ -9,7 +9,7 @@ export const receiveSummoner = summoner => ({
 
 export const fetchSummoner = name => dispatch => {
   dispatch(getSummoner())
-  return fetch(`http://localhost:8080/summoner/${name}`)
+  return fetch(`/summoner/${name}`)
     .then(data => data.json(), error => console.log(error))
     .then(json => dispatch(receiveSummoner(json)))
 }
@@ -25,7 +25,7 @@ export const receiveMatches = matchesData => ({
 
 export const fetchMatches = id => dispatch => {
   dispatch(getMatches())
-  return fetch(`http://localhost:8080/matches/${id}`)
+  return fetch(`/matches/${id}`)
     .then(data => data.json(), error => console.log(error))
     .then(json => dispatch(receiveMatches(json)))
 }
