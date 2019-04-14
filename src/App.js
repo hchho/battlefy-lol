@@ -1,18 +1,22 @@
 import React from 'react'
+import { withStyles } from '@material-ui/core/styles';
+import { styles } from './styles'
+import SummonerForm from './components/SummonerForm'
+import Results from './components/Results'
+import Grid from '@material-ui/core/Grid';
 
-const getData = async () => {
-  const res = await fetch('http://localhost:8080/summoner/RiotSchmick')
-  const data = await res.json()
-  return data
+const App = (props) => {
+  const { classes } = props
+  return (
+    <div className={classes.root}>
+      <Grid container spacing={24}>
+        <Grid item xs={6}>
+          <SummonerForm {...props} />
+          <Results />
+        </Grid>
+      </Grid>
+    </div>
+  )
 }
 
-const App = () => {  
-  getData().then(res => console.log(res))
-
-  return (
-  <h1>
-    Hello world!
-  </h1>
-)}
-
-export default App
+export default withStyles(styles)(App)

@@ -12,10 +12,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/api/foo', (req, res) => {
-  res.send({ message: 'bar' });
-});
-
 app.param('summonerName', (req, res, next) => {
   var summonerName = req.params.summonerName
   var fetchData = fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${config.key}`)

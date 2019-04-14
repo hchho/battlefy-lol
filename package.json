@@ -45,6 +45,9 @@
     "express": "^4.16.4",
     "express-favicon": "^2.0.1",
     "node-fetch": "^2.3.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "react-redux": "^7.0.2",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
   }
 }
